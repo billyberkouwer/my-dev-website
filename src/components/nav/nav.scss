@@ -1,0 +1,17 @@
+@import "@/styles/_helpers.scss";
+
+.container__main-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-size: 1.5rem;
+    border-top: 1px dashed black;
+    margin: 0;
+    padding: 0.5rem 0;
+
+    li {
+        align-self: flex-end;
+    }
+}
