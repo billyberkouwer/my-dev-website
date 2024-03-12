@@ -34,24 +34,3 @@
     overflow-y: auto;
 }
 
-.section__images {
-    position: relative;
-    overflow-y: auto;
-    padding: 0.3rem;
-
-    ul {
-        height: 100%;
-        margin: 0;
-        position: relative;
-        white-space: nowrap;
-        overflow-y: hidden;
-
-        li {
-            display: inline-block;
-            vertical-align: top;
-            position: relative;
-            padding-right: 1rem;
-        }
-    }
-
-}

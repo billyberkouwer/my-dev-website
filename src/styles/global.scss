@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    box-sizing: border-box;
+    // box-sizing: border-box;
     color: $black;
     background-color: $white;
 
@@ -45,4 +45,27 @@ a {
 ul {
     list-style-type: none;
     padding: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    border-top: black dashed 1px;
+    border-left: black dashed 1px;
+    border-right: black dashed 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $highlight;
+    border-radius: 10px;
+    border-top: black dashed 1px;
+    border-left: black dashed 1px;
+    border-right: black dashed 1px;
 }

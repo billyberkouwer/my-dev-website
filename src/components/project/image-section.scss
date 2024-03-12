@@ -1,0 +1,55 @@
+@import "@/styles/_helpers.scss";
+
+.section__images {
+    position: relative;
+    overflow-y: auto;
+}
+
+.list__images {
+    height: 100%;
+    margin: 0;
+    position: relative;
+    white-space: nowrap;
+    overflow-y: hidden;
+}
+
+.img__project {
+    object-fit: cover;
+}
+
+.list__image-project {
+    margin: 0 0.3rem 0 0;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.controller__tab-resize {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    border-radius: 0 5px 5px 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $highlight;
+    z-index: 1;
+    border-top: $black dashed 1px;
+    border-right: $black dashed 1px;
+    border-bottom: $black dashed 1px;
+    user-select: none;
+    transition: height $fast, width $fast, border-radius $fast;
+
+    &:hover {
+        cursor: grab;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0 2rem 2rem 0;
+    }
+
+    &:active {
+        cursor: grabbing;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0 2rem 2rem 0;
+    }
+}
