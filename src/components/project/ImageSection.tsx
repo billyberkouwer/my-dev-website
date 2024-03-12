@@ -25,27 +25,23 @@ export default function ImageSection({
   });
   const scrollYRef = useRef(0);
   const dragContainerButton = useRef<HTMLDivElement>();
-  const [isDragButtonDown, setIsDragButtonDown] = useState(undefined);
-  const [mousePositionOnDown, setMousePositionOnDown] = useState(undefined);
+  const [isDragButtonDown, setIsDragButtonDown] = useState(false);
 
   useLayoutEffect(() => {
     const imageSection = document.querySelector(".section__images");
     const imageList = document.querySelector(".list__images");
-    console.log(imageSection);
+
     setImageSectionDimensions({
       x: imageSection?.getBoundingClientRect().width || 0,
       y: imageSection?.getBoundingClientRect().height || 0,
     });
+
     imageList?.addEventListener("mousewheel", function (e: any) {
       imageList?.scrollTo((imageList.scrollLeft += e.deltaY), 0);
     });
 
-    dragContainerButton.current?.addEventListener("mousedown", function () {
-      setIsDragButtonDown(true);
-    });
     document.addEventListener("mouseup", function () {
       setIsDragButtonDown(false);
-      setMousePositionOnDown(undefined);
     });
 
     window.addEventListener("resize", function () {
@@ -60,14 +56,10 @@ export default function ImageSection({
     });
   }, []);
 
-  useEffect(() => {
-    function mouseMove(e) {
+  useLayoutEffect(() => {
+    function mouseMove(e: MouseEvent) {
       e.preventDefault();
-      if (isDragButtonDown && !mousePositionOnDown) {
-        setMousePositionOnDown({ x: e.clientX, y: e.clientY });
-        console.log(mousePositionOnDown);
-      }
-      if (isDragButtonDown && mousePositionOnDown) {
+      if (isDragButtonDown) {
         const mainContainer = document.querySelector(
           ".container__main"
         ) as HTMLElement;
@@ -84,7 +76,7 @@ export default function ImageSection({
     return () => {
       document.removeEventListener("mousemove", mouseMove);
     };
-  }, [isDragButtonDown, mousePositionOnDown]);
+  }, [isDragButtonDown]);
 
   useEffect(() => {
     if (isDragButtonDown) {
@@ -97,6 +89,7 @@ export default function ImageSection({
         className="controller__tab-resize"
         draggable="true"
         ref={(el) => (el ? (dragContainerButton.current = el) : null)}
+        onMouseDown={() => setIsDragButtonDown(true)}
       />
       <ul className="list__images">
         {projectImages.src.map((src: any, i: number) => (
