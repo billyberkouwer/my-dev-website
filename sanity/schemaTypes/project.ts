@@ -1,5 +1,4 @@
 import { defineType, defineField } from "sanity";
-import { image } from "./image";
 
 export const projectSchema = defineType({
   name: "project",
@@ -7,18 +6,23 @@ export const projectSchema = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "projectTitle",
+      name: "title",
       title: "Project Title",
       type: "string",
     }),
     defineField({
-      name: "projectInfo",
+      name: "thumbnail",
+      title: "Project Thumbnail",
+      type: "imageWithAlt"
+    }),
+    defineField({
+      name: "info",
       title: "Project Info",
       type: "array",
       of: [{ type: "block" }],
     }),
     defineField({
-        name: "projectImages",
+        name: "images",
         title: "Project Images",
         type: "array",
         of: [{type: "imageWithAlt"}],

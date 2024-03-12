@@ -1,17 +1,55 @@
 @import "@/styles/_helpers.scss";
 
+.wrapper__main-nav {
+    grid-area: d;
+    display: flex;
+    align-items: center;
+    border-top: 1px dashed black;
+    border-radius: 1rem;
+}
+
 .container__main-nav {
-    position: fixed;
-    bottom: 0;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    font-size: 1.5rem;
-    border-top: 1px dashed black;
+    font-size: 1rem;
     margin: 0;
-    padding: 0.5rem 0;
+    align-items: center;
+    padding: 0.6rem 0.3rem;
+    box-sizing: border-box;
 
     li {
         align-self: flex-end;
     }
+
+    button {
+        @include unstyle-button;
+        text-align: left;
+
+        &:hover {
+            cursor: pointer;
+            color: $highlight;
+        }
+    }
+}
+
+.wrapper__sub-nav {
+    grid-area: c;
+    overflow-y: hidden;
+    padding: 0rem 0.3rem;
+    display: flex;
+    border-top: 1px dashed rgba(0, 0, 0, 0);
+    transition: border-color 0.1s;
+    transition-delay: 0.4s;
+    border-radius: 1rem;
+}
+
+.container__sub-nav {
+    align-self: center;
+    display: flex;
+    margin: 0;
+}
+
+.project__thumbnail {
+    position: relative;
 }

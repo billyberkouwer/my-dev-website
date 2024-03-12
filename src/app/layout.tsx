@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import '@/styles/global.scss';
-
-const inter = Inter({ subsets: ["latin"] });
+import { Mondwest } from "./font/font";
 
 export const metadata: Metadata = {
   title: "Web Development & 3D | Billy Myles-Berkouwer",
@@ -15,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={Mondwest.className}>{children}</body>
     </html>
   );
 }
