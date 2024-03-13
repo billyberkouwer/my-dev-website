@@ -1,15 +1,18 @@
-import Layout from "@/components/layout/Layout";
-import '@/components/layout/layout.scss';
+"use client";
+
+import HomepageScene from "@/components/three/HomepageScene";
+import { Canvas } from "@react-three/fiber";
+import "./home.scss";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <Layout>
-      <section className="section__info">
-        
-      </section>
-      <section className="section__images">
-        
-      </section>
-    </Layout>
+    <section className="wrapper__full-width">
+      <Suspense>
+        <Canvas>
+          <HomepageScene />
+        </Canvas>
+      </Suspense>
+    </section>
   );
 }

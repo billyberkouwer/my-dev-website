@@ -1,8 +1,12 @@
-'use client'
+"use client";
 
-import {NextStudio} from 'next-sanity/studio'
-import config from '../../../../sanity.config';
+import { NextStudio } from "next-sanity/studio";
+import config from "../../../../sanity.config";
 
 export function Studio() {
-  return <NextStudio config={config} />
+  return (
+    <div style={{position: 'absolute', width: '100%'}}>
+      <NextStudio config={config} />
+    </div>
+  );
 }

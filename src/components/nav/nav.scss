@@ -5,7 +5,9 @@
     display: flex;
     align-items: center;
     border-top: 1px dashed black;
-    border-radius: 1rem;
+    z-index: 1;
+    background-color: $white;
+    border-radius: 1rem 1rem 0 0;
 }
 
 .container__main-nav {
@@ -22,7 +24,9 @@
         align-self: flex-end;
     }
 
-    button {
+    button,
+    a {
+        text-decoration: none;
         @include unstyle-button;
         text-align: left;
 
@@ -38,18 +42,32 @@
     overflow-y: hidden;
     padding: 0rem 0.3rem;
     display: flex;
+    align-items: center;
     border-top: 1px dashed rgba(0, 0, 0, 0);
-    transition: border-color 0.1s;
-    transition-delay: 0.4s;
+    transition: border-color 100ms ease-out, background-color 100ms ease-out;
+    transition-delay: 400ms, 400ms;
     border-radius: 1rem;
+    z-index: 1;
+    background-color: none;
 }
 
 .container__sub-nav {
     align-self: center;
     display: flex;
-    margin: 0;
+
+    a {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .project__thumbnail {
     position: relative;
+    box-sizing: border-box;
+
+    img {
+        margin: 1rem 0;
+
+    }
+
 }

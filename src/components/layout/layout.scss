@@ -1,3 +1,5 @@
+@import "@/styles/_helpers.scss";
+
 .container__page-layout {
     display: grid;
     grid-template-rows: calc(100vh - 2.5rem) 0rem 2.5rem;
@@ -17,6 +19,7 @@
         .wrapper__sub-nav {
             border-top: 1px dashed black;
             transition: border-color 0s;
+            background-color: $white;
         }
     }
 }

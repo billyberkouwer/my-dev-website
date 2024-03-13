@@ -11,9 +11,19 @@ export const projectSchema = defineType({
       type: "string",
     }),
     defineField({
+      title: "Slug",
+      name: "slug",
+      type: "slug",
+      options: {
+        source: "title",
+        slugify: (input) =>
+          input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
+      },
+    }),
+    defineField({
       name: "thumbnail",
       title: "Project Thumbnail",
-      type: "imageWithAlt"
+      type: "imageWithAlt",
     }),
     defineField({
       name: "info",
@@ -22,10 +32,10 @@ export const projectSchema = defineType({
       of: [{ type: "block" }],
     }),
     defineField({
-        name: "images",
-        title: "Project Images",
-        type: "array",
-        of: [{type: "imageWithAlt"}],
-      }),
+      name: "images",
+      title: "Project Images",
+      type: "array",
+      of: [{ type: "imageWithAlt" }, { type: "video" }],
+    }),
   ],
 });

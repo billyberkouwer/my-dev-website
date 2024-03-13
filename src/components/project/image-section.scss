@@ -41,15 +41,15 @@
 
     &:hover {
         cursor: grab;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 0 2rem 2rem 0;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0 0.375rem 0.375rem 0;
     }
 
     &:active {
         cursor: grabbing;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 0 2rem 2rem 0;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0 0.375rem 0.375rem 0;
     }
 }
