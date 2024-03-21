@@ -1,6 +1,15 @@
 @import '_helpers.scss';
 @import '_fonts.scss';
 
+:root {
+    mux-player {
+        --controls: none;
+        --media-object-fit: cover;
+        --media-object-position: center;
+        background: transparent;
+    }
+}
+
 body,
 html {
     margin: 0;

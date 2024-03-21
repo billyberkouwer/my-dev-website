@@ -2,7 +2,7 @@ import { PortableText } from "next-sanity";
 import { client } from "../../../sanity/config/client";
 import Layout from "@/components/layout/Layout";
 import Image from "next/image";
-import ImageSection from "@/components/project/ImageSection";
+import ImageSection from "@/components/project/VisualContentSection";
 
 export default async function Info() {
   const info =

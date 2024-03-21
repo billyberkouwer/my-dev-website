@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 export default function NavBar({ projects }: { projects: any }) {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const pathname = usePathname();
+  console.log(pathname)
 
   // change page layout when submenu is open
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function NavBar({ projects }: { projects: any }) {
                     100 * project.thumbnail.src.metadata.dimensions.aspectRatio
                   }
                   height={100}
-                  style={{ objectFit: "contain" }}
+                  style={{ objectFit: "contain", opacity: '/' + project.slug.current === pathname ? 1 : 0.65 }}
                 />
               </li>
             </Link>

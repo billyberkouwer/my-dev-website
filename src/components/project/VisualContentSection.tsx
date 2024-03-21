@@ -18,7 +18,7 @@ function sizeImages(
   return containerSize;
 }
 
-export default function ImageSection({
+export default function VisualContentSection({
   projectImages,
 }: {
   projectImages: any;
@@ -31,13 +31,15 @@ export default function ImageSection({
   const [isDragButtonDown, setIsDragButtonDown] = useState(false);
 
   useLayoutEffect(() => {
-    const imageSection = document.querySelector(".section__images");
+    const navbar = document.querySelector(".wrapper__main-nav");
     const imageList = document.querySelector(".list__images");
 
-    setImageSectionDimensions({
-      x: imageSection?.getBoundingClientRect().width || 0,
-      y: imageSection?.getBoundingClientRect().height || 0,
-    });
+    if (navbar) {
+      setImageSectionDimensions({
+        x: window.innerWidth - navbar?.getBoundingClientRect().x || 0,
+        y: window.innerHeight - navbar?.getBoundingClientRect().x || 0,
+      });
+    }
 
     imageList?.addEventListener("mousewheel", function (e: any) {
       imageList?.scrollTo((imageList.scrollLeft += e.deltaY), 0);
@@ -95,9 +97,8 @@ export default function ImageSection({
         onMouseDown={() => setIsDragButtonDown(true)}
       />
       <ul className="list__images">
-        {projectImages?.map((asset: any, i: number) => {
-          console.log(asset.src._type);
-          if (asset.src._type === "sanity.imageAsset") {
+        {projectImages.map((asset: any, i: number) => {
+          if (asset?.src?._type === "sanity.imageAsset") {
             return (
               <li
                 key={projectImages[i].alt + "image" + i}
@@ -123,14 +124,34 @@ export default function ImageSection({
             );
           }
 
-          if (asset.src._type === "mux.videoAsset" && asset.src.playbackId) {
+          if (asset?.src._type === "mux.videoAsset" && asset.src.playbackId) {
             return (
-              <div key={asset.src.playbackId}>
+              <li
+                key={asset.src.playbackId}
+                className="wrapper__mux-video"
+                style={{
+                  width: sizeImages(
+                    imageSectionDimensions,
+                    asset.src.sourceWidth / asset.src.sourceHeight
+                  ).x,
+                  height: sizeImages(
+                    imageSectionDimensions,
+                    asset.src.sourceWidth / asset.src.sourceHeight
+                  ).y,
+                }}
+              >
                 <MuxPlayer
                   playbackId={asset.src.playbackId}
                   streamType="on-demand"
+                  autoPlay
+                  loop
+                  placeholder={asset.src.blurHash}
+                  style={{
+                    aspectRatio: asset.src.sourceWidth / asset.src.sourceHeight,
+                    height: "inherit",
+                  }}
                 />
-              </div>
+              </li>
             );
           }
         })}

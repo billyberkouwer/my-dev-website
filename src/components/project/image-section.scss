@@ -2,7 +2,8 @@
 
 .section__images {
     position: relative;
-    overflow-y: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
 .list__images {
@@ -52,4 +53,15 @@
         height: 1.25rem;
         border-radius: 0 0.375rem 0.375rem 0;
     }
+}
+
+.wrapper__mux-video {
+    box-sizing: border-box;
+    width: fit-content;
+    display: inline-block;
+    height: inherit;
+    margin: 0;
+    position: relative;
+    white-space: nowrap;
+    overflow-y: hidden;
 }

@@ -2,8 +2,9 @@ import { PortableText } from "next-sanity";
 import { client } from "../../../sanity/config/client";
 import Layout from "@/components/layout/Layout";
 import Image from "next/image";
-import ImageSection from "@/components/project/ImageSection";
-import MuxPlayer from '@mux/mux-player-react';
+import MuxPlayer from "@mux/mux-player-react";
+import muxBlurHash from "@mux/blurhash";
+import VisualContentSection from "@/components/project/VisualContentSection";
 
 export async function generateStaticParams() {
   const projects = await client.fetch<any>(`*[_type == "project"] { 
@@ -21,8 +22,9 @@ export default async function Project({
 }: {
   params: { slug: string };
 }) {
-  const project =
-    await client.fetch<any>(`*[_type == "project" && slug.current == "${params.slug}"][0] { 
+  const project = await client
+    .fetch<any>(
+      `*[_type == "project" && slug.current == "${params.slug}"][0] { 
     ...,
     images[]{
       _type == 'imageWithAlt' => {
@@ -34,7 +36,28 @@ export default async function Project({
         "src": video.asset->,
       },
     }
-  }`);
+  }`
+    )
+    .then(async (project) => {
+      const projectWithData = { ...project };
+      for (let i = 0; i < projectWithData.images.length; i++) {
+        if (projectWithData.images[i]?.src._type === "mux.videoAsset") {
+          const playbackId = projectWithData.images[i].src.playbackId;
+          const { blurHashBase64, sourceWidth, sourceHeight } =
+            await muxBlurHash(playbackId);
+          Object.assign(projectWithData.images[i].src, {
+            blurHash: blurHashBase64,
+          });
+          Object.assign(projectWithData.images[i].src, {
+            sourceWidth: sourceWidth,
+          });
+          Object.assign(projectWithData.images[i].src, {
+            sourceHeight: sourceHeight,
+          });
+        }
+      }
+      return projectWithData;
+    });
 
   return (
     <>
@@ -42,7 +65,7 @@ export default async function Project({
         <h1>{project.title}</h1>
         <PortableText value={project.info} />
       </section>
-      <ImageSection projectImages={project.images} />
+      <VisualContentSection projectImages={project.images} />
     </>
   );
 }

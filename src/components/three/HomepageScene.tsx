@@ -47,33 +47,8 @@ export default function HomepageScene() {
   >;
   const { scene } = useThree();
   const gltf = useGLTF("/three/flower.glb");
-  const [circle, setCircle] = useState<Mesh>();
   const materials = useRef<Material[]>([]);
   const bgMaterials = useRef<Material[]>([]);
-
-  useLayoutEffect(() => {
-    const geo = new SphereGeometry(100, 32, 64);
-    const mat = new MeshPhysicalMaterial({
-      transmission: 0.2,
-    });
-
-    new TextureLoader().load('/bgColorMap.jpg', (tex) => {
-      mat.emissiveMap = tex;
-      mat.map = tex;
-    })
-
-    function customBackground(shader: any) {
-      shader.uniforms.uTime = { value: Date.now() };
-      shader.fragmentShader = backgroundFragmentShader;
-      shader.vertexShader = backgroundVertexShader;
-      mat.userData.shader = shader;
-    }
-    mat.onBeforeCompile = customBackground;
-    bgMaterials.current.push(mat);
-    const mesh = new Mesh(geo, mat);
-    mat.side = DoubleSide;
-    setCircle(mesh);
-  }, []);
 
   useLayoutEffect(() => {
     scene.matrixAutoUpdate = true;
@@ -123,7 +98,6 @@ export default function HomepageScene() {
   return (
     <>
       <primitive object={gltf.scene} />
-      {circle ? <primitive object={circle} /> : null}
       <pointLight intensity={80} position={[1, 6, 5]} />
       <pointLight
         ref={(el) => (el ? (lightRef.current = el) : null)}
