@@ -5,6 +5,7 @@ import Image from "next/image";
 import MuxPlayer from "@mux/mux-player-react";
 import muxBlurHash from "@mux/blurhash";
 import VisualContentSection from "@/components/project/VisualContentSection";
+import TextContentSection from "@/components/project/TextContentSection";
 
 export async function generateStaticParams() {
   const projects = await client.fetch<any>(`*[_type == "project"] { 
@@ -59,13 +60,11 @@ export default async function Project({
       return projectWithData;
     });
 
+
   return (
     <>
-      <section className="section__info">
-        <h1>{project.title}</h1>
-        <PortableText value={project.info} />
-      </section>
-      <VisualContentSection projectImages={project.images} />
+      <TextContentSection projectTitle={project?.title} projectInfo={project?.info} />
+      <VisualContentSection projectImages={project?.images} />
     </>
   );
 }

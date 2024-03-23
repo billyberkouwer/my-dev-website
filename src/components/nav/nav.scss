@@ -4,21 +4,27 @@
     grid-area: d;
     display: flex;
     align-items: center;
-    border-top: 1px dashed black;
     z-index: 1;
     background-color: $white;
     border-radius: 1rem 1rem 0 0;
+    border-top: 1px dashed black;
 }
 
 .container__main-nav {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     font-size: 1rem;
     margin: 0;
     align-items: center;
-    padding: 0.6rem 0.3rem;
+    justify-content: space-around;
+    padding: 0 0.3rem;
     box-sizing: border-box;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @include md {
+        font-size: 1.25rem;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 
     li {
         align-self: flex-end;
@@ -43,12 +49,15 @@
     padding: 0rem 0.3rem;
     display: flex;
     align-items: center;
-    border-top: 1px dashed rgba(0, 0, 0, 0);
     transition: border-color 100ms ease-out, background-color 100ms ease-out;
     transition-delay: 400ms, 400ms;
     border-radius: 1rem;
     z-index: 1;
     background-color: none;
+
+    @include md {
+        border-top: 1px dashed rgba(0, 0, 0, 0);
+    }
 }
 
 .container__sub-nav {

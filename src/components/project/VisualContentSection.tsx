@@ -4,62 +4,184 @@ import Image from "next/image";
 import "./image-section.scss";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import MuxPlayer from "@mux/mux-player-react";
-
-function sizeImages(
-  containerSize: { x: number; y: number },
-  aspectRatio: number | undefined
-) {
-  if (aspectRatio) {
-    if (containerSize.x / aspectRatio > containerSize.y) {
-      return { x: containerSize.y * aspectRatio, y: containerSize.y };
-    }
-    return { x: containerSize.x, y: containerSize.x / aspectRatio };
-  }
-  return containerSize;
-}
+import { lerp } from "@/utils/lerp";
+import { motion } from "framer-motion";
+import { container, itemUp } from "@/lib/framer/animations";
 
 export default function VisualContentSection({
   projectImages,
 }: {
   projectImages: any;
 }) {
-  const [imageSectionDimensions, setImageSectionDimensions] = useState({
-    x: 0,
-    y: 0,
-  });
+  const visualContentItemsRef = useRef<HTMLLIElement[]>([]);
   const dragContainerButton = useRef<HTMLDivElement>();
+  const sectionImagesContainerRef = useRef<HTMLElement>();
   const [isDragButtonDown, setIsDragButtonDown] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const mouseDownPosition = useRef<{
+    x: undefined | number;
+    y: undefined | number;
+  }>({ x: undefined, y: undefined });
+  const currentMousePosition = useRef<{
+    x: undefined | number;
+    y: undefined | number;
+  }>({ x: undefined, y: undefined });
 
   useLayoutEffect(() => {
     const navbar = document.querySelector(".wrapper__main-nav");
     const imageList = document.querySelector(".list__images");
+    const container__main = document.querySelector(
+      ".container__main"
+    ) as HTMLElement;
 
-    if (navbar) {
-      setImageSectionDimensions({
-        x: window.innerWidth - navbar?.getBoundingClientRect().x || 0,
-        y: window.innerHeight - navbar?.getBoundingClientRect().x || 0,
-      });
-    }
-
-    imageList?.addEventListener("mousewheel", function (e: any) {
-      imageList?.scrollTo((imageList.scrollLeft += e.deltaY), 0);
-    });
-
-    document.addEventListener("mouseup", function () {
-      setIsDragButtonDown(false);
-    });
-
-    window.addEventListener("resize", function () {
+    function resizeVisualContent() {
       const mainContainer = document.querySelector(
         ".container__main"
       ) as HTMLElement;
-      if (mainContainer) {
-        mainContainer.style.gridTemplateColumns = `${window.innerWidth / 3}px ${
-          (window.innerWidth / 3) * 2
-        }px`;
+
+      const isMobile = window.innerWidth <= 768;
+      if (mainContainer && !isMobile && navbar) {
+        visualContentItemsRef.current.forEach((item, i) => {
+          const aspectRatio =
+            projectImages[i]?.src?.metadata?.dimensions?.aspectRatio ||
+            projectImages[i]?.src?.sourceWidth /
+              projectImages[i]?.src?.sourceHeight;
+          if (aspectRatio < 1) {
+            item.style.width =
+              Math.round((window.innerHeight -
+                navbar?.getBoundingClientRect().height -
+                5) *
+                aspectRatio) +
+              "px";
+          } else {
+            item.style.height =
+              Math.round((window.innerHeight -
+                navbar?.getBoundingClientRect().height -
+                5) /
+                aspectRatio) +
+              "px";
+            item.style.width =
+              Math.round(window.innerHeight -
+              navbar?.getBoundingClientRect().height -
+              5) +
+              "px";
+          }
+        });
+      } else if (mainContainer && isMobile && navbar) {
+        visualContentItemsRef.current.forEach((item, i) => {
+          const aspectRatio =
+            projectImages[i]?.src?.metadata?.dimensions?.aspectRatio ||
+            projectImages[i]?.src?.sourceWidth /
+              projectImages[i]?.src?.sourceHeight;
+          if (aspectRatio < 1) {
+            item.style.width =
+              (window.innerHeight / 2 -
+                navbar?.getBoundingClientRect().height -
+                2) *
+                aspectRatio +
+              "px";
+          } else {
+            item.style.height =
+              (window.innerHeight / 2 -
+                navbar?.getBoundingClientRect().height -
+                2) /
+                aspectRatio +
+              "px";
+            item.style.width =
+              window.innerHeight / 2 -
+              navbar?.getBoundingClientRect().height -
+              1 +
+              "px";
+          }
+        });
       }
+    }
+
+    function resizeMainContainer() {
+      const mainContainer = document.querySelector(
+        ".container__main"
+      ) as HTMLElement;
+      if (mainContainer && window.innerWidth > 768 && navbar) {
+        mainContainer.style.gridTemplateColumns = `${window.innerWidth / 3}fr ${
+          (window.innerWidth / 3) * 2
+        }fr`;
+      } else if (mainContainer && window.innerWidth <= 768 && navbar) {
+        mainContainer.style.gridTemplateColumns = "none";
+      }
+    }
+
+    resizeVisualContent();
+
+    function resize() {
+      resizeMainContainer();
+      resizeVisualContent();
+    }
+
+    function imageListScroll(e: any) {
+      imageList?.scrollTo((imageList.scrollLeft += e.deltaY), 0);
+    }
+
+    function mouseUp() {
+      setIsDragButtonDown(false);
+      setIsMouseDown(false);
+    }
+
+    imageList?.addEventListener("mousewheel", (e) => imageListScroll(e));
+    imageList?.addEventListener("mousedown", () => {
+      setIsMouseDown(true);
     });
-  }, []);
+    window.addEventListener("mouseup", mouseUp);
+    window.addEventListener("resize", resize);
+
+    return () => {
+      imageList?.removeEventListener("mousewheel", (e) => imageListScroll(e));
+      window.removeEventListener("mouseup", mouseUp);
+      window.removeEventListener("resize", resize);
+    };
+  }, [projectImages]);
+
+  useLayoutEffect(() => {
+    const imageList = document.querySelector(".list__images");
+
+    function handleImageListDrag(e: MouseEventInit) {
+      const mouseDownX = mouseDownPosition.current.x;
+      const mouseDownY = mouseDownPosition.current.y;
+      if (isMouseDown && !mouseDownX && !mouseDownY) {
+        mouseDownPosition.current.x = e.clientX;
+        mouseDownPosition.current.y = e.clientY;
+      }
+      if (isMouseDown && mouseDownX && mouseDownY) {
+        mouseDownPosition.current.x = currentMousePosition.current.x;
+        mouseDownPosition.current.y = currentMousePosition.current.y;
+        currentMousePosition.current.x = e.clientX;
+        currentMousePosition.current.y = e.clientY;
+
+        if (currentMousePosition.current.x && mouseDownPosition.current.x) {
+          const amountToMove =
+            currentMousePosition.current.x - mouseDownPosition.current.x;
+
+          imageList?.scrollTo(
+            lerp(
+              imageList.scrollLeft - amountToMove * 2,
+              imageList.scrollLeft,
+              0.6
+            ),
+            0
+          );
+        }
+      }
+      if (!isMouseDown) {
+        mouseDownPosition.current.x = undefined;
+        mouseDownPosition.current.y = undefined;
+        currentMousePosition.current.x = undefined;
+        currentMousePosition.current.y = undefined;
+      }
+    }
+    imageList?.addEventListener("mousemove", handleImageListDrag);
+    return () => {
+      imageList?.removeEventListener("mousemove", handleImageListDrag);
+    };
+  }, [isMouseDown]);
 
   useLayoutEffect(() => {
     function mouseMove(e: MouseEvent) {
@@ -69,9 +191,9 @@ export default function VisualContentSection({
           ".container__main"
         ) as HTMLElement;
         if (mainContainer) {
-          mainContainer.style.gridTemplateColumns = `${e.clientX}px ${
+          mainContainer.style.gridTemplateColumns = `${e.clientX}fr ${
             window.innerWidth - e.clientX
-          }px`;
+          }fr`;
         }
       }
     }
@@ -84,78 +206,107 @@ export default function VisualContentSection({
   }, [isDragButtonDown]);
 
   useEffect(() => {
+    const container__main = document.querySelector(".container__main") as
+      | HTMLElement
+      | undefined;
+
     if (isDragButtonDown) {
+      if (container__main) {
+        container__main.style.transition = "none";
+      }
+    } else {
+      if (container__main) {
+        container__main.style.transition = "1000ms";
+      }
     }
+
+    return () => {
+      if (container__main) {
+        container__main.style.transition = "1000ms";
+      }
+    };
   }, [isDragButtonDown]);
 
   return (
-    <section className="section__images">
+    <section
+      className="section__images"
+      ref={(el) => (el ? (sectionImagesContainerRef.current = el) : null)}
+    >
       <div
         className="controller__tab-resize"
         draggable="true"
         ref={(el) => (el ? (dragContainerButton.current = el) : null)}
         onMouseDown={() => setIsDragButtonDown(true)}
-      />
-      <ul className="list__images">
-        {projectImages.map((asset: any, i: number) => {
-          if (asset?.src?._type === "sanity.imageAsset") {
-            return (
-              <li
-                key={projectImages[i].alt + "image" + i}
-                className="list__image-project"
-                style={{
-                  width: sizeImages(
-                    imageSectionDimensions,
-                    asset?.src?.metadata?.dimensions?.aspectRatio
-                  ).x,
-                  height: sizeImages(
-                    imageSectionDimensions,
-                    asset?.src?.metadata?.dimensions?.aspectRatio
-                  ).y,
-                }}
-              >
-                <Image
-                  src={asset?.src.url}
-                  alt={asset?.alt}
-                  className="img__project"
-                  fill
-                />
-              </li>
-            );
-          }
+      >
+        <div className="controller__tab-resize-vertical"></div>
+      </div>
+      {projectImages.length ? (
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="list__images"
+        >
+          {projectImages.map((asset: any, i: number) => {
+            if (asset?.src?._type === "sanity.imageAsset") {
+              return (
+                <motion.li
+                  key={projectImages[i].alt + "image" + i}
+                  className="list__image-project"
+                  variants={itemUp}
+                  ref={(el) =>
+                    el ? (visualContentItemsRef.current[i] = el) : null
+                  }
+                >
+                  <Image
+                    src={asset?.src.url}
+                    alt={asset?.alt}
+                    className="img__project"
+                    fill
+                    style={{
+                      aspectRatio:
+                        asset?.src?.metadata?.dimensions?.aspectRatio,
+                      height: "100%",
+                    }}
+                  />
+                </motion.li>
+              );
+            }
 
-          if (asset?.src._type === "mux.videoAsset" && asset.src.playbackId) {
-            return (
-              <li
-                key={asset.src.playbackId}
-                className="wrapper__mux-video"
-                style={{
-                  width: sizeImages(
-                    imageSectionDimensions,
-                    asset.src.sourceWidth / asset.src.sourceHeight
-                  ).x,
-                  height: sizeImages(
-                    imageSectionDimensions,
-                    asset.src.sourceWidth / asset.src.sourceHeight
-                  ).y,
-                }}
-              >
-                <MuxPlayer
-                  playbackId={asset.src.playbackId}
-                  streamType="on-demand"
-                  autoPlay
-                  loop
-                  placeholder={asset.src.blurHash}
-                  style={{
-                    aspectRatio: asset.src.sourceWidth / asset.src.sourceHeight,
-                    height: "inherit",
-                  }}
-                />
-              </li>
-            );
-          }
-        })}
-      </ul>
+            if (asset?.src._type === "mux.videoAsset" && asset.src.playbackId) {
+              return (
+                <motion.li
+                  key={asset.src.playbackId + i}
+                  className="wrapper__mux-video"
+                  ref={(el) =>
+                    el ? (visualContentItemsRef.current[i] = el) : null
+                  }
+                  variants={itemUp}
+                  aria-description={asset.title}
+                >
+                  <MuxPlayer
+                    playbackId={asset.src.playbackId}
+                    streamType="on-demand"
+                    metadataVideoTitle={asset.title}
+                    autoPlay
+                    loop
+                    placeholder={asset.src.blurHash}
+                    style={{
+                      aspectRatio:
+                        asset.src.sourceWidth / asset.src.sourceHeight,
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: 'transparent',
+                      background: 'transparent',
+                      // overflow: 'hidden',
+                    }}
+                  />
+                </motion.li>
+              );
+            }
+          })}
+        </motion.ul>
+      ) : null}
     </section>
   );
 }

@@ -2,6 +2,8 @@ import { ReactElement, ReactNode } from "react";
 import NavBar from "../nav/Nav";
 import "./layout.scss";
 import { client } from "../../../sanity/config/client";
+import { usePathname } from "next/navigation";
+import Main from "./Main";
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const projects = await client.fetch<any>(`*[_type == "project"] { 
@@ -12,7 +14,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="container__page-layout">
       <NavBar projects={projects} />
-      <main className="container__main">{children}</main>
+      <Main>{children}</Main>
     </div>
   );
 }

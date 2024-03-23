@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./nav.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 export default function NavBar({ projects }: { projects: any }) {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const pathname = usePathname();
-  console.log(pathname)
+  const containerWrapper = useRef<HTMLElement>();
 
   // change page layout when submenu is open
   useEffect(() => {
@@ -31,6 +31,16 @@ export default function NavBar({ projects }: { projects: any }) {
         }
       }, 500);
     }
+
+    function imageListScroll(e: any) {
+      containerWrapper.current?.scrollTo(
+        (containerWrapper.current.scrollLeft += e.deltaY),
+        0
+      );
+    }
+    containerWrapper.current?.addEventListener("mousewheel", (e) =>
+      imageListScroll(e)
+    );
 
     if (mainContainer) {
       mainContainer.addEventListener("mouseover", hideNav);
@@ -58,7 +68,10 @@ export default function NavBar({ projects }: { projects: any }) {
           </Link>
         </ul>
       </nav>
-      <nav className="wrapper__sub-nav">
+      <nav
+        className="wrapper__sub-nav"
+        ref={(el) => (el ? (containerWrapper.current = el) : null)}
+      >
         <ul className="container__sub-nav">
           {projects.map((project: any) => (
             <Link key={project.title} href={`/${project.slug.current}`}>
@@ -70,7 +83,10 @@ export default function NavBar({ projects }: { projects: any }) {
                     100 * project.thumbnail.src.metadata.dimensions.aspectRatio
                   }
                   height={100}
-                  style={{ objectFit: "contain", opacity: '/' + project.slug.current === pathname ? 1 : 0.65 }}
+                  style={{
+                    objectFit: "contain",
+                    opacity: "/" + project.slug.current === pathname ? 1 : 0.65,
+                  }}
                 />
               </li>
             </Link>

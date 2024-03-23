@@ -12,50 +12,17 @@
     position: relative;
     white-space: nowrap;
     overflow-y: hidden;
-}
-
-.img__project {
-    object-fit: cover;
-}
-
-.list__image-project {
-    margin: 0 0.3rem 0 0;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-}
-
-.controller__tab-resize {
-    position: absolute;
-    height: 10px;
-    width: 10px;
-    border-radius: 0 5px 5px 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: $highlight;
-    z-index: 1;
-    border-top: $black dashed 1px;
-    border-right: $black dashed 1px;
-    border-bottom: $black dashed 1px;
-    user-select: none;
-    transition: height $fast, width $fast, border-radius $fast;
 
     &:hover {
         cursor: grab;
-        width: 1.25rem;
-        height: 1.25rem;
-        border-radius: 0 0.375rem 0.375rem 0;
     }
 
     &:active {
         cursor: grabbing;
-        width: 1.25rem;
-        height: 1.25rem;
-        border-radius: 0 0.375rem 0.375rem 0;
     }
 }
 
-.wrapper__mux-video {
+.img__project {
     box-sizing: border-box;
     width: fit-content;
     display: inline-block;
@@ -64,4 +31,74 @@
     position: relative;
     white-space: nowrap;
     overflow-y: hidden;
+    object-fit: cover;
+}
+
+.list__image-project {
+    margin: 0 0.3rem 0 0;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    vertical-align:top; /* <---- this */
+}
+
+.controller__tab-resize {
+    position: absolute;
+    height: 1rem;
+    width: 1.75rem;
+    border-radius: 0 8px 8px 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $highlight;
+    z-index: 1;
+    border-top: $black dashed 1px;
+    border-right: $black dashed 1px;
+    border-bottom: $black dashed 1px;
+    border-left: $highlight solid 1px outside;
+    user-select: none;
+    transition: height $fast, width $fast, border-radius $fast;
+
+
+    .controller__tab-resize-vertical {
+        position: relative;
+        height: 150px;
+        width: 7px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: $highlight;
+        border-radius: 0 8px 8px 0;
+        border-top: $black dashed 1px;
+        border-right: $black dashed 1px;
+        border-bottom: $black dashed 1px;
+        user-select: none;
+        z-index: 0;
+    }
+
+    &:hover {
+        cursor: grab;
+        width: 2.25rem;
+        height: 1.1rem;
+        border-radius: 0 0.6rem 0.6rem 0;
+    }
+
+    &:active {
+        cursor: grabbing;
+        width: 2.5rem;
+        height: 1.1rem;
+        border-radius: 0 0.6rem 0.6rem 0;
+    }
+}
+
+.wrapper__mux-video {
+    // box-sizing: border-box;
+    width: fit-content;
+    display: inline-block;
+    height: fit-content;
+    background-color: $white;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 0.3rem 0 0;
+    vertical-align:top; /* <---- this */
 }

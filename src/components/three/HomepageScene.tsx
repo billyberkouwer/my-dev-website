@@ -12,7 +12,8 @@ import {
   SphereGeometry,
   DoubleSide,
   MeshPhysicalMaterial,
-  TextureLoader
+  TextureLoader,
+  Color
 } from "three";
 import { useProgress } from "@react-three/drei";
 import {
@@ -35,7 +36,6 @@ export const Loader = ({
     if (progress >= 100) {
       setIsLoaded(true);
     }
-    console.log(progress);
   }, [progress, setIsLoaded]);
 
   return <></>;
@@ -68,6 +68,8 @@ export default function HomepageScene() {
           shader.fragmentShader = flowerFragmentShader;
           material.userData.shader = shader;
         };
+        // material.wireframe = true;
+        // material.color = new Color('black')
         material.onBeforeCompile = onBeforeCompile;
         material.needsUpdate = true;
         materials.current.push(material);

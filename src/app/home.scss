@@ -1,5 +1,25 @@
+@import '@/styles/_helpers.scss';
+
 .wrapper__full-width {
-    position: absolute;
+    box-sizing: border-box;
     height: 100%;
     width: 100%;
+    border-bottom: black 1px dashed;
+    border-right: none;
+    transition: border-color 100ms ease-out;
+    overflow: hidden;
+
+    @include md {
+        border-right: black 1px dashed;
+        border-bottom: none;
+    }
+
+    &.hide-border {
+        border-right: rgba(0, 0, 0, 0) 1px dashed;
+        transition: border-color 100ms 900ms ease-out;
+    }
+}
+
+#three-canvas {
+    transition: 100ms;
 }
