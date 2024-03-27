@@ -33,7 +33,6 @@ export default function Home() {
 
   useEffect(() => {
     function resizeCanvas() {
-      console.log(window.innerWidth);
       setCanvasSize({
         x: window.innerWidth,
         y: window.innerHeight,
@@ -59,6 +58,7 @@ export default function Home() {
           ref={(el) => (el ? (canvasRef.current = el) : null)}
           style={{ width: canvasSize.x + "px", height: canvasSize.y + "px" }}
           id="three-canvas"
+          camera={{position: [-3,3,8]}}
         >
           <HomepageScene />
         </Canvas>

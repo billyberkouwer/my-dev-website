@@ -48,7 +48,7 @@ export default function HomepageScene() {
   const { scene } = useThree();
   const gltf = useGLTF("/three/flower.glb");
   const materials = useRef<Material[]>([]);
-  const bgMaterials = useRef<Material[]>([]);
+  // const bgMaterials = useRef<Material[]>([]);
 
   useLayoutEffect(() => {
     scene.matrixAutoUpdate = true;
@@ -87,14 +87,14 @@ export default function HomepageScene() {
       });
     }
 
-    if (bgMaterials.current) {
-      bgMaterials.current.forEach((material) => {
-        const uTime = material.userData.shader?.uniforms?.uTime;
-        if (uTime) {
-          uTime.value = performance.now() / 5000;
-        }
-      });
-    }
+    // if (bgMaterials.current) {
+    //   bgMaterials.current.forEach((material) => {
+    //     const uTime = material.userData.shader?.uniforms?.uTime;
+    //     if (uTime) {
+    //       uTime.value = performance.now() / 5000;
+    //     }
+    //   });
+    // }
   });
 
   return (
