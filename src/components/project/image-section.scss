@@ -75,7 +75,7 @@
         height: 10rem;
         width: 0.5rem;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translate(-10%, -50%);
         background-color: $highlight;
         border-radius: 0 8px 8px 0;
         border-top: $black dashed 1px;
@@ -106,7 +106,6 @@
 }
 
 .wrapper__mux-video {
-    // box-sizing: border-box;
     width: fit-content;
     display: inline-block;
     height: fit-content;
@@ -116,5 +115,4 @@
     overflow: hidden;
     margin: 0 0.3rem 0 0;
     vertical-align: top;
-    /* <---- this */
 }
