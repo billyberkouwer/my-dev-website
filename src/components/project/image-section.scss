@@ -45,6 +45,13 @@
 }
 
 .controller__tab-resize {
+
+    display: none;
+
+    @include md {
+        display: block;
+    }
+
     position: absolute;
     height: 1rem;
     width: 1.75rem;
@@ -58,7 +65,9 @@
     border-bottom: $black dashed 1px;
     border-left: $highlight solid 1px outside;
     user-select: none;
-    transition: height $fast, width $fast, border-radius $fast;
+    transition: height $fast,
+    width $fast,
+    border-radius $fast;
 
 
     .controller__tab-resize-vertical {
