@@ -4,18 +4,19 @@
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    border-bottom: black 1px dashed;
+    border-bottom: black 1px dashed outside;
     border-right: none;
     transition: border-color 100ms ease-out;
     overflow: hidden;
 
     @include md {
-        border-right: black 1px dashed;
+        border-right: black 1px dashed outside;
         border-bottom: none;
     }
 
     &.hide-border {
-        border-right: rgba(0, 0, 0, 0) 1px dashed;
+        border-right: rgba(0, 0, 0, 0) 1px dashed outside;
+        border-bottom: rgba(0, 0, 0, 0) 1px dashed outside;
         transition: border-color 100ms 900ms ease-out;
     }
 }

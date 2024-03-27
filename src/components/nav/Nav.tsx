@@ -94,6 +94,7 @@ export default function NavBar({ projects }: { projects: any }) {
                   style={{
                     objectFit: "contain",
                     opacity: "/" + project.slug.current === pathname ? 1 : 0.65,
+                    aspectRatio: project.thumbnail.src.metadata.dimensions.aspectRatio
                   }}
                 />
               </li>

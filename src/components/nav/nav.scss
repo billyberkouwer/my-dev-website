@@ -12,16 +12,17 @@
 
 .container__main-nav {
     width: 100%;
-    display: grid;
+    display: flex;
     font-size: 1rem;
     margin: 0;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 0 0.3rem;
     box-sizing: border-box;
-    grid-template-columns: 1fr 1fr 1fr;
 
     @include md {
+        display: grid;
+        justify-content: space-around;
         font-size: 1.25rem;
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
@@ -75,9 +76,15 @@
     box-sizing: border-box;
 
     img {
-        margin: 1rem 1rem 1rem 0;
         opacity: 0.65;
         transition: opacity $fast;
+        max-width: 5rem;
+        max-height: 3rem;
+        @include md {
+            max-width: fit-content;
+            max-height: fit-content;
+            margin: 1rem 1rem 1rem 0;
+        }
     }
 
     &:hover {

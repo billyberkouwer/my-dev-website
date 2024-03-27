@@ -12,7 +12,11 @@
 
     &.open {
         // set sub-menu height to thumbnail image height + padding
-        grid-template-rows: calc(var(--real-page-height) - 10.5rem) 8rem 2.5rem;
+        grid-template-rows: calc(var(--real-page-height) - 6.5rem) 4rem 2.5rem;
+
+        @include md {
+            grid-template-rows: calc(var(--real-page-height) - 10.5rem) 8rem 2.5rem;
+        }
 
         .wrapper__sub-nav {
             border-top: 1px dashed black;
