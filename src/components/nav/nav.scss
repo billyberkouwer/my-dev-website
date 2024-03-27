@@ -46,8 +46,8 @@
 .wrapper__sub-nav {
     grid-area: c;
     overflow-y: hidden;
-    padding: 0rem 0.3rem;
     display: flex;
+    padding: 0 0.5rem;
     align-items: center;
     transition: border-color 100ms ease-out, background-color 100ms ease-out;
     transition-delay: 400ms, 400ms;
@@ -75,11 +75,13 @@
     box-sizing: border-box;
 
     img {
-        margin: 1rem 0;
+        margin: 1rem 1rem 1rem 0;
         opacity: 0.65;
         transition: opacity $fast;
+    }
 
-        &:hover {
+    &:hover {
+        img {
             opacity: 1 !important;
         }
     }

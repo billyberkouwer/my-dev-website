@@ -20,7 +20,7 @@ export const infoSchema = defineType({
       name: "images",
       title: "Info Images",
       type: "array",
-      of: [{ type: "imageWithAlt" }],
+      of: [{ type: "imageWithAlt" }, { type: "video" }],
     }),
   ],
 });

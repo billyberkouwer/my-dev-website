@@ -74,15 +74,23 @@ export default function NavBar({ projects }: { projects: any }) {
       >
         <ul className="container__sub-nav">
           {projects.map((project: any) => (
-            <Link key={project.title} href={`/${project.slug.current}`}>
-              <li className="project__thumbnail">
+            <Link className="project__thumbnail" key={project.title} href={`/${project.slug.current}`}>
+              <li>
                 <Image
                   src={project.thumbnail.src.url}
                   alt={project.thumbnail.alt}
                   width={
-                    100 * project.thumbnail.src.metadata.dimensions.aspectRatio
+                    project.thumbnail.src.metadata.dimensions.aspectRatio < 3
+                      ? 100 *
+                        project.thumbnail.src.metadata.dimensions.aspectRatio
+                      : 300
                   }
-                  height={100}
+                  height={
+                    project.thumbnail.src.metadata.dimensions.aspectRatio < 3
+                      ? 100
+                      : 300 /
+                        project.thumbnail.src.metadata.dimensions.aspectRatio
+                  }
                   style={{
                     objectFit: "contain",
                     opacity: "/" + project.slug.current === pathname ? 1 : 0.65,

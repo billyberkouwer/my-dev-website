@@ -10,7 +10,6 @@ import TextContentSection from "@/components/project/TextContentSection";
 export async function generateStaticParams() {
   const projects = await client.fetch<any>(`*[_type == "project"] { 
         ...,
-        "images": {"src": images[].image.asset->, "alt": images[].imageAltText}   
     }`);
 
   return projects.map((project: any, i: number) => ({

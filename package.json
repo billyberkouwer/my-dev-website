@@ -12,6 +12,7 @@
     "@mux/blurhash": "^0.1.2",
     "@mux/mux-player-react": "^2.3.3",
     "@portabletext/react": "^3.0.11",
+    "@portabletext/types": "^2.0.11",
     "@react-three/drei": "^9.102.3",
     "@react-three/fiber": "^8.15.19",
     "@sanity/client": "^6.15.3",

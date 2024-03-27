@@ -40,7 +40,8 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    vertical-align:top; /* <---- this */
+    vertical-align: top;
+    /* <---- this */
 }
 
 .controller__tab-resize {
@@ -62,8 +63,8 @@
 
     .controller__tab-resize-vertical {
         position: relative;
-        height: 150px;
-        width: 7px;
+        height: 10rem;
+        width: 0.5rem;
         top: 50%;
         transform: translateY(-50%);
         background-color: $highlight;
@@ -73,13 +74,18 @@
         border-bottom: $black dashed 1px;
         user-select: none;
         z-index: 0;
+        transition: height $fast, width $fast, border-radius $fast;
     }
 
     &:hover {
         cursor: grab;
-        width: 2.25rem;
+        width: 2.5rem;
         height: 1.1rem;
         border-radius: 0 0.6rem 0.6rem 0;
+
+        .controller__tab-resize-vertical {
+            width: 0.8rem;
+        }
     }
 
     &:active {
@@ -100,5 +106,6 @@
     white-space: nowrap;
     overflow: hidden;
     margin: 0 0.3rem 0 0;
-    vertical-align:top; /* <---- this */
+    vertical-align: top;
+    /* <---- this */
 }
