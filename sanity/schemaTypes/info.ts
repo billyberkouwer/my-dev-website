@@ -10,17 +10,17 @@ export const infoSchema = defineType({
       title: "Info Title",
       type: "string",
     }),
-    defineField({
+    {
       name: "details",
       title: "Info Details",
       type: "array",
       of: [{ type: "block" }],
-    }),
-    defineField({
+    },
+    {
       name: "images",
       title: "Info Images",
       type: "array",
       of: [{ type: "imageWithAlt" }, { type: "video" }],
-    }),
+    },
   ],
 });
