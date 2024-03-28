@@ -22,5 +22,10 @@ export const infoSchema = defineType({
       type: "array",
       of: [{ type: "imageWithAlt" }, { type: "video" }],
     },
+    {
+      name: "meta",
+      title: "Meta Fields",
+      type: "metaFields",
+    }
   ],
 });

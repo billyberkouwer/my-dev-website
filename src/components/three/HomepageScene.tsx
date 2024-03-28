@@ -77,7 +77,7 @@ export default function HomepageScene() {
     });
   }, [scene, gltf]);
 
-  useFrame(() => {
+  useFrame((gl, delta) => {
     if (materials.current) {
       materials.current.forEach((material) => {
         const uTime = material.userData.shader?.uniforms?.uTime;
@@ -85,6 +85,7 @@ export default function HomepageScene() {
           uTime.value = performance.now() / 5000;
         }
       });
+      gltf.scene.rotateY(-delta / 10);
     }
 
     // if (bgMaterials.current) {
