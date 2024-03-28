@@ -39,11 +39,8 @@ export default function Homepage() {
         y: window.innerHeight,
       });
     }
-
     resizeCanvas();
-
     window.addEventListener("resize", resizeCanvas);
-
     return () => {
       window.removeEventListener("resize", resizeCanvas);
     };

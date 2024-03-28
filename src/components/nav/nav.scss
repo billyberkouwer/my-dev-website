@@ -17,12 +17,11 @@
     margin: 0;
     align-items: center;
     justify-content: space-between;
-    padding: 0 0.3rem;
+    padding: 0 1rem;
     box-sizing: border-box;
 
     @include md {
         display: grid;
-        justify-content: space-around;
         font-size: 1.25rem;
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
@@ -64,6 +63,7 @@
 .container__sub-nav {
     align-self: center;
     display: flex;
+    gap: 0.5rem;
 
     a {
         display: flex;
