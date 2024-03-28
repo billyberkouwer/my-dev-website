@@ -13,7 +13,7 @@ const myPortableTextComponents = {
         ? "noreferrer noopener"
         : undefined;
       return (
-        <Link href={value.href} target={rel ? "_blank" : undefined} rel={rel}>
+        <Link href={value.href} target={"_blank"} rel={rel}>
           {children}
         </Link>
       );
