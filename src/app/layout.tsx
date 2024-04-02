@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 const url = process.env.SITE_URL as string;
 
 export const metadata: Metadata = {
-  title: "Web Development & 3D | Billy Myles-Berkouwer",
+  title: "Web Development & 3D - Billy Myles-Berkouwer",
   metadataBase: new URL(url),
 };
 
