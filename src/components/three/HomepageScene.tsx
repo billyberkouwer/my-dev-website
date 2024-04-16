@@ -25,22 +25,6 @@ import {
   flowerVertexShader,
 } from "@/lib/three/customFlowerShader";
 
-export const Loader = ({
-  setIsLoaded,
-}: {
-  setIsLoaded: (boolean: boolean) => void;
-}) => {
-  const { progress } = useProgress();
-
-  useEffect(() => {
-    if (progress >= 100) {
-      setIsLoaded(true);
-    }
-  }, [progress, setIsLoaded]);
-
-  return <></>;
-};
-
 export default function HomepageScene() {
   const lightRef = useRef<Object3D<Object3DEventMap>>() as MutableRefObject<
     Object3D<Object3DEventMap>

@@ -4,7 +4,7 @@ import HomepageScene from "@/components/three/HomepageScene";
 import { Canvas } from "@react-three/fiber";
 import "./home.scss";
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
-import Loading from "@/components/three/Loading";
+import Loader from "../three/Loader";
 
 export default function Homepage() {
   const fullWidthSectionRef = useRef<HTMLElement>();
@@ -51,16 +51,16 @@ export default function Homepage() {
       className="wrapper__full-width"
       ref={(el) => (el ? (fullWidthSectionRef.current = el) : null)}
     >
-      <Suspense fallback={<Loading />}>
-        <Canvas
-          ref={(el) => (el ? (canvasRef.current = el) : null)}
-          style={{ width: canvasSize.x + "px", height: canvasSize.y + "px" }}
-          id="three-canvas"
-          camera={{ position: [-3, -2, 8] }}
-        >
+      <Canvas
+        ref={(el) => (el ? (canvasRef.current = el) : null)}
+        style={{ width: canvasSize.x + "px", height: canvasSize.y + "px" }}
+        id="three-canvas"
+        camera={{ position: [-3, -2, 8] }}
+      >
+        <Suspense fallback={<Loader />}>
           <HomepageScene />
-        </Canvas>
-      </Suspense>
+        </Suspense>
+      </Canvas>
     </section>
   );
 }
