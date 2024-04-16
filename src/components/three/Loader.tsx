@@ -5,7 +5,7 @@ export default function Loader() {
   const { active, progress, errors, item, loaded, total } = useProgress();
   return (
     <Html wrapperClass="container__loading">
-      <h1>{progress}% loaded</h1>
+      <h1>{Math.round(progress)}% loaded</h1>
     </Html>
   );
 }
