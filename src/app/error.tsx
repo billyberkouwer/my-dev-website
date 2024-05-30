@@ -33,7 +33,7 @@ export default function Error({
       }}
     >
       <h2 style={{padding: "0 0.5rem"}}>
-        Something went wrong! This page shows a 3D flower and it{"'"}s not been
+        This page should show a 3D flower but it{"'"}s not been
         able to bloom on your device {":("} <br /> <br />
         It{"'"}s quite heavy and you may not have enough disk space to run it.
       </h2>
