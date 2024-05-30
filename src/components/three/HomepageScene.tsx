@@ -32,9 +32,8 @@ export default function HomepageScene() {
   const { scene } = useThree();
   const gltf = useGLTF("/three/flower.glb");
   const materials = useRef<Material[]>([]);
-  // const bgMaterials = useRef<Material[]>([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     scene.matrixAutoUpdate = true;
     scene.matrixWorldNeedsUpdate = true;
     gltf.scene.traverse((node) => {
@@ -52,8 +51,6 @@ export default function HomepageScene() {
           shader.fragmentShader = flowerFragmentShader;
           material.userData.shader = shader;
         };
-        // material.wireframe = true;
-        // material.color = new Color('black')
         material.onBeforeCompile = onBeforeCompile;
         material.needsUpdate = true;
         materials.current.push(material);
@@ -71,15 +68,6 @@ export default function HomepageScene() {
       });
       gltf.scene.rotateY(-delta / 10);
     }
-
-    // if (bgMaterials.current) {
-    //   bgMaterials.current.forEach((material) => {
-    //     const uTime = material.userData.shader?.uniforms?.uTime;
-    //     if (uTime) {
-    //       uTime.value = performance.now() / 5000;
-    //     }
-    //   });
-    // }
   });
 
   return (
