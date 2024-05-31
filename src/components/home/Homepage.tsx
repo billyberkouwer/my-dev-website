@@ -55,7 +55,7 @@ export default function Homepage() {
         ref={(el) => (el ? (canvasRef.current = el) : null)}
         style={{ width: canvasSize.x + "px", height: canvasSize.y + "px" }}
         id="three-canvas"
-        camera={{ position: [-3, -2, 8] }}
+        camera={{ position: [-3, -2, 5] }}
       >
         <Suspense fallback={<Loader />}>
           <HomepageScene />

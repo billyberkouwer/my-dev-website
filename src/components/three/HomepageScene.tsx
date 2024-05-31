@@ -2,24 +2,14 @@
 
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 import {
   Object3D,
   Object3DEventMap,
   SkinnedMesh,
-  Mesh,
   Material,
-  SphereGeometry,
-  DoubleSide,
   MeshPhysicalMaterial,
-  TextureLoader,
-  Color
 } from "three";
-import { useProgress } from "@react-three/drei";
-import {
-  backgroundFragmentShader,
-  backgroundVertexShader,
-} from "@/lib/three/customBackgroundShader";
 import {
   flowerFragmentShader,
   flowerVertexShader,
@@ -39,11 +29,9 @@ export default function HomepageScene() {
     gltf.scene.traverse((node) => {
       if ((node as SkinnedMesh)?.isSkinnedMesh) {
         const skinnedMesh = node as SkinnedMesh;
-        skinnedMesh.normalizeSkinWeights();
-        skinnedMesh.geometry.normalizeNormals();
         const material = skinnedMesh.material as MeshPhysicalMaterial;
-        material.transmission = 0.1;
-        material.roughness = 0.9;
+        material.transmission = 0.2;
+        material.roughness = 0.75;
         const uTime = Date.now();
         const onBeforeCompile = (shader: any) => {
           shader.uniforms.uTime = { value: uTime };
@@ -59,7 +47,7 @@ export default function HomepageScene() {
   }, [scene, gltf]);
 
   useFrame((gl, delta) => {
-    if (materials.current) {
+    if (materials.current.length) {
       materials.current.forEach((material) => {
         const uTime = material.userData.shader?.uniforms?.uTime;
         if (uTime) {
