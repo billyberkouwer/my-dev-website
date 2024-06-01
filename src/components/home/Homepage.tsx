@@ -16,16 +16,16 @@ export default function Homepage() {
 
   useEffect(() => {
     if (fullWidthSectionRef.current) {
-      const container__main = fullWidthSectionRef.current.parentElement;
+      const container__main = fullWidthSectionRef.current?.parentElement;
       if (container__main) {
         container__main.attributeStyleMap.clear();
         fullWidthSectionRef.current.classList.add("hide-border");
         container__main.style.transition = "1000ms";
         container__main.classList.remove("is-content-split");
         return () => {
-          container__main?.classList.add("is-content-split");
           if (container__main) {
-            container__main.attributeStyleMap.clear();
+            container__main.classList.add("is-content-split");
+            container__main.attributeStyleMap?.clear();
           }
         };
       }
