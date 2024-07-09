@@ -58,17 +58,18 @@ export default function HomepageScene() {
     }
   });
 
-  return (
-    <>
-      <primitive object={gltf.scene} />
-      <pointLight intensity={80} position={[1, 6, 5]} />
-      <pointLight
-        ref={(el) => (el ? (lightRef.current = el) : null)}
-        intensity={4}
-        position={[0, 4, 2.5]}
-      />
-      <ambientLight intensity={1} />
-      <OrbitControls maxDistance={20} minDistance={2}/>
-    </>
-  );
+
+    return (
+      <>
+        <primitive object={gltf.scene} />
+        <pointLight intensity={80} position={[1, 6, 5]} />
+        <pointLight
+          ref={(el) => (el ? (lightRef.current = el) : null)}
+          intensity={4}
+          position={[0, 4, 2.5]}
+        />
+        <ambientLight intensity={1} />
+        <OrbitControls maxDistance={20} minDistance={2} />
+      </>
+    );
 }
