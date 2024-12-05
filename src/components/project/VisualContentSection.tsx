@@ -273,7 +273,7 @@ export default function VisualContentSection({
               );
             }
 
-            if (asset?.src._type === "mux.videoAsset" && asset.src.playbackId) {
+            if (asset?.src?._type === "mux.videoAsset" && asset.src.playbackId) {
               return (
                 <motion.li
                   key={asset.src.playbackId + i}

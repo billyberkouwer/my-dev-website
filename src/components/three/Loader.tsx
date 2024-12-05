@@ -10,7 +10,7 @@ export default function Loader() {
   useEffect(() => {
     setRoundedProgress(Math.round(progress));
   }, [progress]);
-  
+
   return (
     <Html wrapperClass="container__loading">
       <span>
