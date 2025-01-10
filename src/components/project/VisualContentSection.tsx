@@ -14,8 +14,8 @@ export default function VisualContentSection({
   projectImages: any;
 }) {
   const visualContentItemsRef = useRef<HTMLLIElement[]>([]);
-  const dragContainerButton = useRef<HTMLDivElement>();
-  const sectionImagesContainerRef = useRef<HTMLElement>();
+  const dragContainerButton = useRef<HTMLDivElement>(null);
+  const sectionImagesContainerRef = useRef<HTMLElement>(null);
   const [isDragButtonDown, setIsDragButtonDown] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const mouseDownPosition = useRef<{
@@ -231,11 +231,11 @@ export default function VisualContentSection({
   return (
     <section
       className="section__images"
-      ref={(el) => (el ? (sectionImagesContainerRef.current = el) : null)}
+      ref={sectionImagesContainerRef}
     >
       <div
         className="controller__tab-resize"
-        ref={(el) => (el ? (dragContainerButton.current = el) : null)}
+        ref={dragContainerButton}
         onMouseDown={() => setIsDragButtonDown(true)}
         draggable="false"
       >
@@ -255,6 +255,7 @@ export default function VisualContentSection({
                   key={projectImages[i].alt + "image" + i}
                   className="list__image-project"
                   variants={itemUp}
+                  //@ts-ignore
                   ref={(el) =>
                     el ? (visualContentItemsRef.current[i] = el) : null
                   }
@@ -282,6 +283,7 @@ export default function VisualContentSection({
                 <motion.li
                   key={asset.src.playbackId + i}
                   className="wrapper__mux-video"
+                  //@ts-ignore
                   ref={(el) =>
                     el ? (visualContentItemsRef.current[i] = el) : null
                   }

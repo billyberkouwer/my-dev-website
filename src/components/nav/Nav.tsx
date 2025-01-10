@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 export default function NavBar({ projects }: { projects: any }) {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const pathname = usePathname();
-  const containerWrapper = useRef<HTMLElement>();
+  const containerWrapper = useRef<HTMLElement>(null);
 
   // change page layout when submenu is open
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function NavBar({ projects }: { projects: any }) {
       </nav>
       <nav
         className="wrapper__sub-nav"
-        ref={(el) => (el ? (containerWrapper.current = el) : null)}
+        ref={containerWrapper}
       >
         <ul className="container__sub-nav">
           {projects.map((project: any) => (

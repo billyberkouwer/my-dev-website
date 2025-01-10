@@ -14,6 +14,7 @@ import {
   DoubleSide,
   Mesh,
   ShaderMaterial,
+  PointLight,
 } from "three";
 import {
   flowerFragmentShader,
@@ -23,9 +24,7 @@ import { customBackgroundShader } from "../home/shader";
 
 export default function Background() {
   const backgroundShaderRef = useRef<ShaderMaterial | null>(null);
-  const lightRef = useRef<Object3D<Object3DEventMap>>() as MutableRefObject<
-    Object3D<Object3DEventMap>
-  >;
+  const lightRef = useRef<PointLight>(null);
   const backgroundMesh = useRef<Mesh>(null);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ export default function Background() {
     <>
       <pointLight intensity={80} position={[1, 6, 5]} />
       <pointLight
-        ref={(el) => (el ? (lightRef.current = el) : null)}
+        ref={lightRef}
         intensity={4}
         position={[0, 4, 2.5]}
       />
