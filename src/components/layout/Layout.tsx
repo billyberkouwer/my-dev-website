@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Main from "./Main";
 
 export default async function Layout({ children }: { children: ReactNode }) {
-  const projects = await client.fetch<any>(`*[_type == "project"] { 
+  const projects = await client.fetch<any>(`*[_type == "project"]|order(orderRank) { 
         ...,
         "thumbnail": {"src": thumbnail.image.asset->, "alt": thumbnail.imageAltText},
     }`);

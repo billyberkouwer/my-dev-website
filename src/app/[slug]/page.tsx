@@ -10,7 +10,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { MetaProps } from "@/lib/sanity/fetch";
 
 export async function generateStaticParams() {
-  const projects = await client.fetch<any>(`*[_type == "project"] { 
+  const projects = await client.fetch<any>(`*[_type == "project"]|order(orderRank) { 
         ...,
     }`);
 

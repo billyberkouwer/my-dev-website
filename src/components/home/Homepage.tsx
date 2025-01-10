@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import "./home.scss";
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Loader from "../three/Loader";
+import Background from "../three/Background";
 
 export default function Homepage() {
   const fullWidthSectionRef = useRef<HTMLElement>();
@@ -56,8 +57,8 @@ export default function Homepage() {
         ref={(el) => (el ? (canvasRef.current = el) : null)}
         style={{ width: canvasSize.x + "px", height: canvasSize.y + "px" }}
         id="three-canvas"
-        camera={{ position: [-3, -2, 5] }}
       >
+        <Background />
         <Suspense fallback={<Loader />}>
           <HomepageScene />
         </Suspense>

@@ -1,6 +1,6 @@
 "use client";
 
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF, useProgress } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MutableRefObject, useEffect, useRef } from "react";
 import {
@@ -9,19 +9,44 @@ import {
   SkinnedMesh,
   Material,
   MeshPhysicalMaterial,
+  Color,
+  Uniform,
+  DoubleSide,
+  Mesh,
 } from "three";
 import {
   flowerFragmentShader,
   flowerVertexShader,
 } from "@/lib/three/customFlowerShader";
+import { customBackgroundShader } from "../home/shader";
+import gsap from "gsap";
 
 export default function HomepageScene() {
-  const lightRef = useRef<Object3D<Object3DEventMap>>() as MutableRefObject<
-    Object3D<Object3DEventMap>
-  >;
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
   const gltf = useGLTF("/three/flower.glb");
+  const flower = useRef<Mesh>(null);
   const materials = useRef<Material[]>([]);
+  const backgroundMesh = useRef(null);
+  const backgroundShaderRef = useRef(null);
+  const { active, progress, errors, item, loaded, total } = useProgress();
+
+  useEffect(() => {
+    if (progress >= 100 && flower.current) {
+      gsap.to(flower.current.scale, {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 1,
+      });
+
+      gsap.to(camera.position, {
+        x: -3,
+        y: -2,
+        z: 5,
+        duration: 0.5,
+      });
+    }
+  }, [progress, camera]);
 
   useEffect(() => {
     scene.matrixAutoUpdate = true;
@@ -46,7 +71,7 @@ export default function HomepageScene() {
     });
   }, [scene, gltf]);
 
-  useFrame((gl, delta) => {
+  useFrame((state, delta) => {
     if (materials.current.length) {
       materials.current.forEach((material) => {
         const uTime = material.userData.shader?.uniforms?.uTime;
@@ -58,18 +83,10 @@ export default function HomepageScene() {
     }
   });
 
-
-    return (
-      <>
-        <primitive object={gltf.scene} />
-        <pointLight intensity={80} position={[1, 6, 5]} />
-        <pointLight
-          ref={(el) => (el ? (lightRef.current = el) : null)}
-          intensity={4}
-          position={[0, 4, 2.5]}
-        />
-        <ambientLight intensity={1} />
-        <OrbitControls maxDistance={20} minDistance={2} />
-      </>
-    );
+  return (
+    <>
+      <primitive scale={[0, 0, 0]} object={gltf.scene} ref={flower} />
+      <OrbitControls maxDistance={20} minDistance={2} />
+    </>
+  );
 }

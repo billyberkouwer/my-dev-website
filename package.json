@@ -18,6 +18,7 @@
     "@react-three/fiber": "^8.15.19",
     "@sanity/client": "^6.15.3",
     "@sanity/image-url": "^1.0.2",
+    "@sanity/orderable-document-list": "^1.2.2",
     "@sanity/vision": "^3.32.0",
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
@@ -29,7 +30,8 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "sanity-plugin-mux-input": "^2.2.4",
-    "sass": "^1.71.1"
+    "sass": "^1.71.1",
+    "styled-components": "^6.1.14"
   },
   "devDependencies": {
     "@types/node": "^20",

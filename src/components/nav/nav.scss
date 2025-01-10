@@ -6,7 +6,6 @@
     align-items: center;
     z-index: 1;
     background-color: $white;
-    border-radius: 1rem 1rem 0 0;
     border-top: 1px dashed black;
 }
 
@@ -51,9 +50,8 @@
     align-items: center;
     transition: border-color 100ms ease-out, background-color 100ms ease-out;
     transition-delay: 400ms, 400ms;
-    border-radius: 1rem;
     z-index: 1;
-    background-color: none;
+    background-color: transparent;
 
     @include md {
         border-top: 1px dashed rgba(0, 0, 0, 0);

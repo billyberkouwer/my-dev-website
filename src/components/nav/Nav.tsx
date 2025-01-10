@@ -26,9 +26,7 @@ export default function NavBar({ projects }: { projects: any }) {
 
     function hideNav() {
       setTimeout(() => {
-        if (pathname && pathname === "/") {
-          setIsSubMenuOpen(false);
-        }
+        setIsSubMenuOpen(false);
       }, 500);
     }
 
@@ -57,13 +55,16 @@ export default function NavBar({ projects }: { projects: any }) {
     <>
       <nav className="wrapper__main-nav">
         <ul className="container__main-nav">
-          <Link href={"/"}>
+          <Link className="item__main-nav" href={"/"}>
             <li>Billy Myles-Berkouwer</li>
           </Link>
-          <button onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}>
+          <button
+            className="item__main-nav"
+            onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+          >
             selected projects
           </button>
-          <Link href={"/info"}>
+          <Link className="item__main-nav" href={"/info"}>
             <li>info</li>
           </Link>
         </ul>
@@ -74,7 +75,11 @@ export default function NavBar({ projects }: { projects: any }) {
       >
         <ul className="container__sub-nav">
           {projects.map((project: any) => (
-            <Link className="project__thumbnail" key={project.title} href={`/${project.slug.current}`}>
+            <Link
+              className="project__thumbnail"
+              key={project.title}
+              href={`/${project.slug.current}`}
+            >
               <li>
                 <Image
                   src={project.thumbnail.src.url}
@@ -94,7 +99,8 @@ export default function NavBar({ projects }: { projects: any }) {
                   style={{
                     objectFit: "contain",
                     opacity: "/" + project.slug.current === pathname ? 1 : 0.65,
-                    aspectRatio: project.thumbnail.src.metadata.dimensions.aspectRatio
+                    aspectRatio:
+                      project.thumbnail.src.metadata.dimensions.aspectRatio,
                   }}
                 />
               </li>

@@ -48,23 +48,24 @@ export default function VisualContentSection({
               projectImages[i]?.src?.sourceHeight;
           if (aspectRatio < 1) {
             item.style.width =
-              Math.round((window.innerHeight -
-                navbar?.getBoundingClientRect().height -
-                5) *
-                aspectRatio) +
-              "px";
+              Math.round(
+                (window.innerHeight -
+                  navbar?.getBoundingClientRect().height -
+                  5) *
+                  aspectRatio
+              ) + "px";
           } else {
             item.style.height =
-              Math.round((window.innerHeight -
-                navbar?.getBoundingClientRect().height -
-                5) /
-                aspectRatio) +
-              "px";
+              Math.round(
+                (window.innerHeight -
+                  navbar?.getBoundingClientRect().height -
+                  5) /
+                  aspectRatio
+              ) + "px";
             item.style.width =
-              Math.round(window.innerHeight -
-              navbar?.getBoundingClientRect().height -
-              5) +
-              "px";
+              Math.round(
+                window.innerHeight - navbar?.getBoundingClientRect().height - 5
+              ) + "px";
           }
         });
       } else if (mainContainer && isMobile && navbar) {
@@ -183,7 +184,7 @@ export default function VisualContentSection({
     };
   }, [isMouseDown]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     function mouseMove(e: MouseEvent) {
       e.preventDefault();
       if (isDragButtonDown) {
@@ -234,9 +235,9 @@ export default function VisualContentSection({
     >
       <div
         className="controller__tab-resize"
-        draggable="true"
         ref={(el) => (el ? (dragContainerButton.current = el) : null)}
         onMouseDown={() => setIsDragButtonDown(true)}
+        draggable="false"
       >
         <div className="controller__tab-resize-vertical"></div>
       </div>
@@ -273,7 +274,10 @@ export default function VisualContentSection({
               );
             }
 
-            if (asset?.src?._type === "mux.videoAsset" && asset.src.playbackId) {
+            if (
+              asset?.src?._type === "mux.videoAsset" &&
+              asset.src.playbackId
+            ) {
               return (
                 <motion.li
                   key={asset.src.playbackId + i}
@@ -296,8 +300,8 @@ export default function VisualContentSection({
                         asset.src.sourceWidth / asset.src.sourceHeight,
                       width: "100%",
                       height: "100%",
-                      backgroundColor: 'transparent',
-                      background: 'transparent',
+                      backgroundColor: "transparent",
+                      background: "transparent",
                       // overflow: 'hidden',
                     }}
                   />
