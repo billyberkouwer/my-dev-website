@@ -30,8 +30,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "sanity-plugin-mux-input": "^2.2.4",
-    "sass": "^1.71.1",
-    "styled-components": "^5"
+    "sass": "^1.71.1"
   },
   "devDependencies": {
     "@types/node": "^20",
