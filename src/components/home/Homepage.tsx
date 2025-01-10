@@ -1,15 +1,15 @@
 "use client";
 
 import HomepageScene from "@/components/three/HomepageScene";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, CanvasProps } from "@react-three/fiber";
 import "./home.scss";
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Loader from "../three/Loader";
 import Background from "../three/Background";
 
 export default function Homepage() {
-  const fullWidthSectionRef = useRef<HTMLElement>();
-  const canvasRef = useRef<HTMLElement>();
+  const fullWidthSectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvasSize, setCanvasSize] = useState<{
     x: number | undefined;
     y: number | undefined;
@@ -51,10 +51,10 @@ export default function Homepage() {
   return (
     <section
       className="wrapper__full-width"
-      ref={(el) => (el ? (fullWidthSectionRef.current = el) : null)}
+      ref={fullWidthSectionRef}
     >
       <Canvas
-        ref={(el) => (el ? (canvasRef.current = el) : null)}
+        ref={canvasRef}
         style={{ width: canvasSize.x + "px", height: canvasSize.y + "px" }}
         id="three-canvas"
       >
