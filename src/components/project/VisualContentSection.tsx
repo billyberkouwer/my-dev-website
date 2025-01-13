@@ -296,6 +296,7 @@ export default function VisualContentSection({
                     metadataVideoTitle={asset.title}
                     autoPlay
                     loop
+                    muted
                     placeholder={asset.src.blurHash}
                     style={{
                       aspectRatio:
