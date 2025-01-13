@@ -46,7 +46,7 @@
     grid-area: c;
     overflow-y: hidden;
     display: flex;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     align-items: center;
     transition: border-color 100ms ease-out, background-color 100ms ease-out;
     transition-delay: 400ms, 400ms;
@@ -61,7 +61,7 @@
 .container__sub-nav {
     align-self: center;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 
     a {
         display: flex;
@@ -76,9 +76,11 @@
     img {
         opacity: 0.65;
         transition: opacity $fast;
-        max-width: 5rem;
-        max-height: 3rem;
+        width: fit-content;
+        max-width: 8rem;
+        max-height: 4rem;
         @include md {
+            width: auto;
             max-width: fit-content;
             max-height: fit-content;
             margin: 1rem 1rem 1rem 0;

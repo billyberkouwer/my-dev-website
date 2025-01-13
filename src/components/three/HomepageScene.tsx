@@ -80,7 +80,7 @@ export default function HomepageScene() {
           uTime.value = performance.now() / 5000;
         }
       });
-      gltf.scene.rotateY(-delta / 10);
+      // gltf.scene.rotateY(-delta / 10);
     }
   });
 

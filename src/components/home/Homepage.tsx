@@ -61,6 +61,7 @@ export default function Homepage() {
         <Background />
         <Suspense fallback={<Loader />}>
           <HomepageScene />
+          {/* <Loader /> */}
         </Suspense>
       </Canvas>
     </section>
