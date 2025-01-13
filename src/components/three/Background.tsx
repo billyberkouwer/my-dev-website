@@ -55,8 +55,8 @@ export default function Background() {
 
   useEffect(() => {
     if (progress >= 100) {
-      console.log(backgroundMesh.current?.material.emissive)
-      gsap.to(backgroundMesh.current?.material.emissive, {
+      const material = backgroundMesh.current?.material as MeshPhysicalMaterial;
+      gsap.to(material?.emissive, {
         r: 0.5,
         g: 0,
         b: 0.1,
