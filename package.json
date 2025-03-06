@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@mux/blurhash": "^0.1.2",
-    "@mux/mux-player-react": "^2.3.3",
+    "@mux/mux-player-react": "^2.9.1",
     "@portabletext/react": "^3.0.11",
     "@portabletext/types": "^2.0.11",
     "@react-three/drei": "^9.102.3",
@@ -29,7 +29,7 @@
     "react": "^18",
     "react-countup": "^6.5.3",
     "react-dom": "^18",
-    "sanity-plugin-mux-input": "^2.2.4",
+    "sanity-plugin-mux-input": "^2.6.0",
     "sass": "^1.71.1"
   },
   "devDependencies": {

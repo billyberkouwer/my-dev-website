@@ -47,11 +47,8 @@ export default function Background() {
         backgroundMaterial.onBeforeCompile = backgroundShaderCompile;
       }
       backgroundMesh.current.material = backgroundMaterial;
-      console.log(backgroundMesh);
     }
   }, []);
-
-  console.log(progress)
 
   useEffect(() => {
     if (progress >= 100) {

@@ -55,7 +55,6 @@ export default function HomepageScene() {
       if ((node as SkinnedMesh)?.isSkinnedMesh) {
         const skinnedMesh = node as SkinnedMesh;
         const material = skinnedMesh.material as MeshPhysicalMaterial;
-        console.log(material)
         material.transmission = 0.2;
         material.roughness = 0.75;
         const uTime = Date.now();
