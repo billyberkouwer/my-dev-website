@@ -86,14 +86,14 @@ export default function NavBar({ projects }: { projects: any }) {
                   alt={project.thumbnail.alt}
                   width={
                     project.thumbnail.src.metadata.dimensions.aspectRatio < 3
-                      ? 100 *
+                      ? 75 *
                         project.thumbnail.src.metadata.dimensions.aspectRatio
-                      : 300
+                      : 200
                   }
                   height={
                     project.thumbnail.src.metadata.dimensions.aspectRatio < 3
-                      ? 100
-                      : 300 /
+                      ? 75
+                      : 200 /
                         project.thumbnail.src.metadata.dimensions.aspectRatio
                   }
                   style={{
