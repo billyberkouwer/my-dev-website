@@ -69,10 +69,7 @@ export default function NavBar({ projects }: { projects: any }) {
           </Link>
         </ul>
       </nav>
-      <nav
-        className="wrapper__sub-nav"
-        ref={containerWrapper}
-      >
+      <nav className="wrapper__sub-nav" ref={containerWrapper}>
         <ul className="container__sub-nav">
           {projects.map((project: any) => (
             <Link
@@ -80,30 +77,27 @@ export default function NavBar({ projects }: { projects: any }) {
               key={project.title}
               href={`/${project.slug.current}`}
             >
-              <li>
-                <Image
-                  src={project.thumbnail.src.url}
-                  alt={project.thumbnail.alt}
-                  width={
-                    project.thumbnail.src.metadata.dimensions.aspectRatio < 3
-                      ? 75 *
-                        project.thumbnail.src.metadata.dimensions.aspectRatio
-                      : 200
-                  }
-                  height={
-                    project.thumbnail.src.metadata.dimensions.aspectRatio < 3
-                      ? 75
-                      : 200 /
-                        project.thumbnail.src.metadata.dimensions.aspectRatio
-                  }
-                  style={{
-                    objectFit: "contain",
-                    opacity: "/" + project.slug.current === pathname ? 1 : 0.65,
-                    aspectRatio:
-                      project.thumbnail.src.metadata.dimensions.aspectRatio,
-                  }}
-                />
-              </li>
+              <Image
+                src={project.thumbnail.src.url}
+                alt={project.thumbnail.alt}
+                width={
+                  project.thumbnail.src.metadata.dimensions.aspectRatio < 3
+                    ? 75 * project.thumbnail.src.metadata.dimensions.aspectRatio
+                    : 200
+                }
+                height={
+                  project.thumbnail.src.metadata.dimensions.aspectRatio < 3
+                    ? 75
+                    : 200 /
+                      project.thumbnail.src.metadata.dimensions.aspectRatio
+                }
+                style={{
+                  objectFit: "contain",
+                  opacity: "/" + project.slug.current === pathname ? 1 : 0.65,
+                  aspectRatio:
+                    project.thumbnail.src.metadata.dimensions.aspectRatio,
+                }}
+              />
             </Link>
           ))}
         </ul>

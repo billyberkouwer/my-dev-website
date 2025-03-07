@@ -11,7 +11,11 @@
     ;
 
     &.open {
-        grid-template-rows: calc(var(--real-page-height) - 7.5rem) 5.5rem 2rem;
+        grid-template-rows: calc(var(--real-page-height) - 7rem) 5rem 2rem;
+
+        @include md {
+            grid-template-rows: calc(var(--real-page-height) - 7.5rem) 5.5rem 2rem;
+        }
 
         .wrapper__sub-nav {
             border-top: 1px dashed black;
